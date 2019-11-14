@@ -1,0 +1,129 @@
+CRAWLER_STUDY
+
+spiders:
+	- imdb_topgross: captura as informações da página de top gross do boxoffice mojo (https://www.boxofficemojo.com/year/world/2018/)
+	- eachmovie: segue o link de cada filme da lista de top gross (https://www.boxofficemojo.com/year/world/2018/) para a página referente ao release daquele ano (https://www.boxofficemojo.com/release/rl3043198465/). Nessa página, então, captura as informações disponíveis.
+	- eachmoviefurther: segue o link de cada filme da lista de top gross (https://www.boxofficemojo.com/year/world/2018/) para a página referente ao release daquele ano (https://www.boxofficemojo.com/release/rl3043198465/). É capaz de capturar o id único do filme nessa página, e com isso segue para a página do título (https://www.boxofficemojo.com/title/tt4154756/). Essa página, por sua vez, contém as arrecadações totais do filme contando todos os releases e outras informações. 
+	- imgscraper_releasepage: segue o link de cada filme da lista de top gross (https://www.boxofficemojo.com/year/world/2018/) para a página referente ao release daquele ano (https://www.boxofficemojo.com/release/rl3043198465/). Nessa página, manipula o link do poster para baixar a imagem em alta resolução. Então, esse crawler captura todos os posteres em alta resolução da lista de filmes de um ano (deu 1.5GB os posteres de 2018).
+	- poster_scraper: evolução do imgscraper_releasepage que renomeia os nomes dos posteres baixados para o id do respectivo filme e salva em uma pasta dentro de //imgs/{year}/
+
+
+
+
+
+
+    Esse crawler acessa a página de worldwide topgross do boxofficemojo, que é uma lista de filmes lançados por ano 
+ordenada por arrecadação mundial. Para cada filme da lista, o crawler acessa uma segunda página que contém informações
+sobre aquele release específico do filme (o lançamento respectivo àquele ano).
+
+    Informações coletadas:
+        'title_id': ID único de cada filme (ex.: 'tt4154756')
+        'release_id': ID único de cada release de filme (ex.: 'rl3043198465')
+        'title': título do filme em inglês (ex.: 'avengers infinity war')
+        'distributor': empresa responsável pela distribuição do filme (ex.: 'walt disney studios motion pictures')
+        'worldwide_gross': arrecadação mundial total em dólares das exibições de cinema daquele filme (ex.: '2048359754')
+        'domestic_gross': arrecadação "local" (referente aos cinemas dos Estados Unidos) em dólares (ex.: '678815482')
+        'foreign_gross'*: arrecadação "internacional" (referente aos cinemas fora dos Estados Unidos) em dólares (ex.: '1369544272')
+        'runtime_minutes': tempo de duração do filme em minutos (ex.: '149')
+        'opening_weekend'*: arrecadação do primeiro final de semana de exibição do filme (opening) em dólares (ex.: '257698183')
+        'n_theaters_opening'*: número de cinemas que ocorreram simultaneamente a exibição do filme na opening (ex.: '4474')
+        'n_theaters_widest': número máximo de cinemas que exibiram o filme simultaneamente durante as semanas de exibição (ex.: '4474')
+        'genres': gêneros do filme de acordo com o IMDb (ex.: 'action,adventure,scifi')
+        'release_date': data de lançamento daquele release em específico (ex.: '2018,04,27')
+        'days_in_release': quantos dias o filme ficou em cartaz naquele release (ex.: '249')
+
+        *: campos sinalizados com asterisco podem ser vazios em alguns casos
+        Todos os campos textuais foram normalizados para conterem somente letras minúsculas e sem nenhum caractere especial ou acentuação
+
+
+
+    Esse crawler, portanto, não coleta as informações precisas sobre a arrecadação atual total de um filme. 
+
+    O filme 'E.T. the Extra-Terrestrial', por exemplo, teve 3 releases: o original em 1983, um em 1985 e outro em 2002. Os dois releases 
+subsequentes representam 120milhões de dólares a mais para a arrecadação total (metade para cada release), que é uma quantidade significativa
+em relação ao release original (que arrecadou 663milhões). Se o release original for levado como a única referência de arrecadação do filme, 
+conclusões erradas podem ser tomadas pois ele só representa 85% da arrecadação total verdadeira daquele filme. 
+
+    Os dados coletados pelo crawler são úteis, entretanto, para coletar as informações dos releases daquele ano em específico.
+
+
+
+    
+
+
+Rotten Tomatoes
+	- Title
+	- Critics Consensus 
+	- Tomatometer
+		+ Total Count
+	- Audience Score
+		+ User Ratings
+	- Movie Info
+		- Summary (diferente)
+		- Rating
+		- Genre
+		- Directed by
+		- Written by
+		- Launch in teathers
+		- Launch on disc / streaming
+		- Runtime
+		- Studio
+	- Cast
+
+OBS: o site parece ser muito voltado para agradar o usuário final, então coletar dados dali vai exigir muito processamento dos dados porque estão cheios de observações e caracteres especiais. O Metacritic fornece alguns dos mesmos dados só que mais direto ao ponto (sinalizados abaixo).
+
+
+
+Metacritic
+	- Title 
+	- Year (tá mais visível)
+	- Cast (tá mais visível)
+	- Summary (diferente)
+	- Director 
+	- Genre (tá mais visível)
+	- Rating (tá mais visível)
+	- Runtime (em minutos)
+	- Metascore
+		+ number of critics
+			# positive
+			# mixed
+			# negative
+	- User Score
+		+ number of critics
+			# positive
+			# mixed
+			# negative
+
+
+
+IMDb
+	- Título (em português é útil?)
+	- Year
+	- Score 
+		+ number of critics
+	- Cast (em 3 itens só)
+	- Rating brasileiro (idade)
+	- Summary (diferente)
+	- Director
+	- Writers
+	- Cast
+	- Budget
+	- Opening Weekend USA
+	- Gross USA
+	- Cumulative Worldwide Gross
+	- Production Co
+	- Runtime (minutos)
+	- Sound Mix
+	- Color
+	- Aspect Ratio 
+
+
+
+
+
+
+
+
+
+Top Worldwide Grossing Movies > IMDb > Metacritic >  ??? > Rotten Tomatoes
+
