@@ -16,4 +16,4 @@ A função de captura foi adaptada para renomear os arquivos baixados para repre
 
 Por se tratar de dezenas de milhares de posteres, contemplando mais de 3GB de dados por estarem em suas resoluções originais, eles não foram incluídos no repositório. 
 
-(README EM CONSTRUÇÃO)
+_(README EM CONSTRUÇÃO)_
