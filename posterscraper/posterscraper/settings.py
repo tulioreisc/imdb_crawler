@@ -22,7 +22,7 @@ USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36
 ROBOTSTXT_OBEY = True
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
-CONCURRENT_REQUESTS = 4
+CONCURRENT_REQUESTS = 2
 
 # Configure a delay for requests for the same website (default: 0)
 # See https://docs.scrapy.org/en/latest/topics/settings.html#download-delay
@@ -67,8 +67,16 @@ COOKIES_ENABLED = False
 ITEM_PIPELINES = {
     #'scrapy.pipelines.images.FilesPipeline': 1,
     'posterscraper.pipelines.PosterscraperPipeline': 1,
+    #'scrapy.pipelines.images.ImagesPipeline': 1
 }
-FILES_STORE = "imgs"
+IMAGES_STORE = "imgs"
+
+IMAGES_THUMBS = {
+    'small': (100, 100),
+    'big': (278, 184),
+}
+IMAGES_MIN_HEIGHT = 139
+IMAGES_MIN_WIDTH = 92
 
 
 

@@ -13,5 +13,5 @@ class PosterscraperItem(scrapy.Item):
     # name = scrapy.Field()
     title = scrapy.Field()
     title_id = scrapy.Field()
-    file_urls = scrapy.Field()
-    files = scrapy.Field()
+    image_urls = scrapy.Field()
+    images = scrapy.Field()
